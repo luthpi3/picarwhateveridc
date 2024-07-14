@@ -1,0 +1,19 @@
+import cv2
+
+
+ip_camera_url = "http://192.168.1.2:8080/video"
+video = cv2.VideoCapture(ip_camera_url)
+
+while True:
+  ret,frame = video.read()
+  frame = cv2.flip(frame,-1) # used to flip the image vertically
+  cv2.imshow('original',frame)
+  cv2.imwrite('original.jpg',frame)
+
+  key = cv2.waitKey(1)
+  if key == 27:
+     break
+
+video.release()
+cv2.destroyAllWindows()
+

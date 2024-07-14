@@ -6,11 +6,11 @@ GPIO.setwarnings(False)
 # Right Motor
 in1 = 17
 in2 = 27
-en_a = 4
+en_a = 2
 # Left Motor
 in3 = 5
 in4 = 6
-en_b = 13
+en_b = 4
 
 
 GPIO.setmode(GPIO.BCM)
@@ -22,8 +22,11 @@ GPIO.setup(in3,GPIO.OUT)
 GPIO.setup(in4,GPIO.OUT)
 GPIO.setup(en_b,GPIO.OUT)
 
-p=GPIO.PWM(en_b,100)
+q=GPIO.PWM(en_a,1000)
+p=GPIO.PWM(en_b,1000)
+q.start(100)
 p.start(100)
+
 
 GPIO.output(in1,GPIO.LOW)
 GPIO.output(in2,GPIO.LOW)
@@ -42,17 +45,17 @@ try:
       # print(user_input)
 
       if user_input == 'w':
-         GPIO.output(in1,GPIO.HIGH)
-         GPIO.output(in2,GPIO.LOW)
+         GPIO.output(in1,GPIO.LOW)
+         GPIO.output(in2,GPIO.HIGH)
 
-         GPIO.output(in4,GPIO.HIGH)
+         GPIO.output(in4,GPIO.LOW)
          GPIO.output(in3,GPIO.LOW)
 
          print("Forward")
 
       elif user_input == 's':
-         GPIO.output(in1,GPIO.LOW)
-         GPIO.output(in2,GPIO.HIGH)
+         GPIO.output(in1,GPIO.HIGH)
+         GPIO.output(in2,GPIO.LOW)
 
          GPIO.output(in4,GPIO.LOW)
          GPIO.output(in3,GPIO.HIGH)
@@ -60,19 +63,51 @@ try:
 
       elif user_input == 'd':
          GPIO.output(in1,GPIO.LOW)
-         GPIO.output(in2,GPIO.HIGH)
+         GPIO.output(in2,GPIO.LOW)
 
          GPIO.output(in4,GPIO.LOW)
-         GPIO.output(in3,GPIO.LOW)
+         GPIO.output(in3,GPIO.HIGH)
          print('Right')
 
       elif user_input == 'a':
+         GPIO.output(in1,GPIO.LOW)
+         GPIO.output(in2,GPIO.LOW)
+
+         GPIO.output(in4,GPIO.HIGH)
+         GPIO.output(in3,GPIO.LOW)
+         print('Left')
+         
+      elif user_input == 'wa':
+         GPIO.output(in1,GPIO.LOW)
+         GPIO.output(in2,GPIO.HIGH)
+
+         GPIO.output(in4,GPIO.HIGH)
+         GPIO.output(in3,GPIO.LOW)
+         print('Left-Forward')
+         
+      elif user_input == 'wd':
+         GPIO.output(in1,GPIO.LOW)
+         GPIO.output(in2,GPIO.HIGH)
+
+         GPIO.output(in4,GPIO.LOW)
+         GPIO.output(in3,GPIO.HIGH)
+         print('RIGHT-Forward')
+         
+      elif user_input == 'sa':
+         GPIO.output(in1,GPIO.HIGH)
+         GPIO.output(in2,GPIO.LOW)
+
+         GPIO.output(in4,GPIO.HIGH)
+         GPIO.output(in3,GPIO.LOW)
+         print('Left-back')
+         
+      elif user_input == 'sd':
          GPIO.output(in1,GPIO.HIGH)
          GPIO.output(in2,GPIO.LOW)
 
          GPIO.output(in4,GPIO.LOW)
-         GPIO.output(in3,GPIO.LOW)
-         print('Left')
+         GPIO.output(in3,GPIO.HIGH)
+         print('right-back')
 
       # Press 'c' to exit the script
       elif user_input == 'c':

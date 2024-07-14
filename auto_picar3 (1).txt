@@ -4,15 +4,29 @@ import RPi.GPIO as GPIO
 import time
 
 # Setup GPIO
+GPIO.setwarnings(False)
+IN1 = 17
+IN2 = 27
+IN3 = 5
+IN4 = 6
+en_a=2
+en_b=4
 GPIO.setmode(GPIO.BCM)
-IN1 = 24
-IN2 = 23
-IN3 = 27
-IN4 = 22
 GPIO.setup(IN1, GPIO.OUT)
 GPIO.setup(IN2, GPIO.OUT)
 GPIO.setup(IN3, GPIO.OUT)
 GPIO.setup(IN4, GPIO.OUT)
+GPIO.setup(en_a,GPIO.OUT)
+GPIO.setup(en_b,GPIO.OUT)
+q=GPIO.PWM(en_a,1000)
+p=GPIO.PWM(en_b,1000)
+q.start(100)
+p.start(100)
+
+GPIO.output(IN1,GPIO.LOW)
+GPIO.output(IN2,GPIO.LOW)
+GPIO.output(IN4,GPIO.LOW)
+GPIO.output(IN3,GPIO.LOW)
 
 def forward():
     GPIO.output(IN1, GPIO.HIGH)
@@ -44,7 +58,7 @@ def stop():
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.LOW)
 
-ip_camera_url = "http://192.168.228.69:8080/video"
+ip_camera_url = "http://192.168.1.2:8080/video"
 
 cap = cv2.VideoCapture(ip_camera_url)
 
@@ -91,3 +105,4 @@ except KeyboardInterrupt:
 cap.release()
 cv2.destroyAllWindows()
 GPIO.cleanup()
+
